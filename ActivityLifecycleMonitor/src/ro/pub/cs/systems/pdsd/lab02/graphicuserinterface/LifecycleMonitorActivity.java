@@ -68,17 +68,32 @@ public class LifecycleMonitorActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    	String logMessage = "onCreate() method was invoked";
-    	logMessage += savedInstanceState == null ?  " for the first time" : "";
-        Log.d(Constants.TAG, logMessage);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lifecycle_monitor);
         
+    	String logMessage = "onCreate() method was invoked";
+    	logMessage += savedInstanceState == null ?  " for the first time" : "";
+        Log.d(Constants.TAG, logMessage);
+        if(savedInstanceState != null) {
+    		Log.d(Constants.TAG, "onCreate() method was invoked... restoring context");
+    		EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+    		EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+    		CheckBox rememberCheckBox = (CheckBox) findViewById(R.id.remember_me_checkbox);
+    		
+    		
+    		usernameEditText.setText(savedInstanceState.getString(Constants.USERNAME_EDIT_TEXT));
+    		passwordEditText.setText(savedInstanceState.getString(Constants.PASSWORD_EDIT_TEXT));
+    		rememberCheckBox.setChecked(true);
+        }
+        
+
+
         Button okButton = (Button)findViewById(R.id.ok_button);
         okButton.setOnClickListener(buttonClickListener);
         Button cancelButton = (Button)findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(buttonClickListener);
+        
+
 
 
     }    
@@ -161,14 +176,14 @@ public class LifecycleMonitorActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onRestoreInstanceState(savedInstanceState);
 		Log.d(Constants.TAG, "onRestoreInstanceState() method was invoked");
-		EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
-		EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
-		CheckBox rememberCheckBox = (CheckBox) findViewById(R.id.remember_me_checkbox);
-		
-		
-		usernameEditText.setText(savedInstanceState.getString(Constants.USERNAME_EDIT_TEXT));
-		passwordEditText.setText(savedInstanceState.getString(Constants.PASSWORD_EDIT_TEXT));
-		rememberCheckBox.setChecked(true);
+//		EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+//		EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+//		CheckBox rememberCheckBox = (CheckBox) findViewById(R.id.remember_me_checkbox);
+//		
+//		
+//		usernameEditText.setText(savedInstanceState.getString(Constants.USERNAME_EDIT_TEXT));
+//		passwordEditText.setText(savedInstanceState.getString(Constants.PASSWORD_EDIT_TEXT));
+//		rememberCheckBox.setChecked(true);
 		
 	}
     
