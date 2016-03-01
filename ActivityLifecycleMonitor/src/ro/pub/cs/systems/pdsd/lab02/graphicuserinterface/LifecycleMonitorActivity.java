@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
@@ -67,6 +68,10 @@ public class LifecycleMonitorActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	String logMessage = "onCreate() method was invoked";
+    	logMessage += savedInstanceState == null ?  " for the first time" : "";
+        Log.d(Constants.TAG, logMessage);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lifecycle_monitor);
         
@@ -74,7 +79,8 @@ public class LifecycleMonitorActivity extends Activity{
         okButton.setOnClickListener(buttonClickListener);
         Button cancelButton = (Button)findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(buttonClickListener);
-        Log.d(Constants.TAG, "onCreate() method was invoked");
+
+
     }    
 
     @Override
@@ -132,8 +138,39 @@ public class LifecycleMonitorActivity extends Activity{
 		Log.d(Constants.TAG, "onStop() method was invoked");
 		super.onStop();
 	}
-    
-    
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+
+		Log.d(Constants.TAG, "onSaveInstanceState() method was invoked");
+		EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+		EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+		CheckBox rememberCheckBox = (CheckBox) findViewById(R.id.remember_me_checkbox);
+		
+		if(rememberCheckBox.isChecked()) {
+			outState.putString(Constants.USERNAME_EDIT_TEXT, usernameEditText.getText().toString());
+			outState.putString(Constants.PASSWORD_EDIT_TEXT, passwordEditText.getText().toString());
+		}		
+		
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onRestoreInstanceState(savedInstanceState);
+		Log.d(Constants.TAG, "onRestoreInstanceState() method was invoked");
+		EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+		EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+		CheckBox rememberCheckBox = (CheckBox) findViewById(R.id.remember_me_checkbox);
+		
+		
+		usernameEditText.setText(savedInstanceState.getString(Constants.USERNAME_EDIT_TEXT));
+		passwordEditText.setText(savedInstanceState.getString(Constants.PASSWORD_EDIT_TEXT));
+		rememberCheckBox.setChecked(true);
+		
+	}
     
     
 }
