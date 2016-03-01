@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
-public class LifecycleMonitorActivity extends Activity {
+public class LifecycleMonitorActivity extends Activity{
 	
 	private ButtonClickListener buttonClickListener = new ButtonClickListener();
 	
@@ -95,4 +95,45 @@ public class LifecycleMonitorActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+	@Override
+	protected void onDestroy() {
+		Log.d(Constants.TAG, "onDestroy() method was invoked");
+		super.onDestroy();
+		
+	}
+
+	@Override
+	protected void onPause() {
+		Log.d(Constants.TAG, "onPause() method was invoked");	
+		super.onPause();
+	}
+
+	@Override
+	protected void onRestart() {
+		Log.d(Constants.TAG, "onRestart() method was invoked");
+		super.onRestart();
+	}
+
+	@Override
+	protected void onResume() {
+		Log.d(Constants.TAG, "onResume() method was invoked");
+		super.onResume();
+	}
+
+	@Override
+	protected void onStart() {
+		Log.d(Constants.TAG, "onStart() method was invoked");
+		super.onStart();
+	}
+
+	@Override
+	protected void onStop() {
+		Log.d(Constants.TAG, "onStop() method was invoked");
+		super.onStop();
+	}
+    
+    
+    
+    
 }
